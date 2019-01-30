@@ -1,4 +1,4 @@
-package com.dongbin.mybatis.utils;
+package com.dongbin.mybatis.encrypt;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
@@ -10,10 +10,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 /**
+ * 默认的对称加密方法
  * author dongbin
  * created 20190129
  */
-public class AESUtil {
+public class AESUtil implements IEncrypt {
 
     private static final String KEY_ALGORITHM = "AES";
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";//默认的加密算法
@@ -24,7 +25,8 @@ public class AESUtil {
      *
      * @throws Exception
      */
-    public static String encrypt(String data) {
+    @Override
+    public String encrypt(String data) {
         try {
             Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
             cipher.init(Cipher.ENCRYPT_MODE, getSecretKey());
@@ -37,7 +39,8 @@ public class AESUtil {
     /**
      * 解密
      */
-    public static String decrypt(String data) {
+    @Override
+    public String decrypt(String data) {
         try {
             Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, getSecretKey());

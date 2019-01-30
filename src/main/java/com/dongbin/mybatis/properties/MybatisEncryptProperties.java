@@ -1,12 +1,19 @@
 package com.dongbin.mybatis.properties;
 
+import com.dongbin.mybatis.encrypt.AESUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("mybatis.encrypt")
 public class MybatisEncryptProperties {
 
-    private String name;
+    /**
+     * 默认的加密方法
+     */
+    private Class clazz = AESUtil.class;
 
+    /**
+     * 是否开启加密
+     */
     private boolean enabled = false;
 
     public boolean isEnabled() {
@@ -17,11 +24,11 @@ public class MybatisEncryptProperties {
         this.enabled = enabled;
     }
 
-    public String getName() {
-        return name;
+    public Class getClazz() {
+        return clazz;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClazz(Class clazz) {
+        this.clazz = clazz;
     }
 }

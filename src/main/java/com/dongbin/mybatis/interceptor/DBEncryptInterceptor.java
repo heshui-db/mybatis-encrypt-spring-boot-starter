@@ -1,7 +1,8 @@
 package com.dongbin.mybatis.interceptor;
 
 import com.dongbin.mybatis.annotation.MybatisEncrypt;
-import com.dongbin.mybatis.utils.AESUtil;
+import com.dongbin.mybatis.encrypt.AESUtil;
+import com.dongbin.mybatis.encrypt.IEncrypt;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
@@ -20,6 +21,19 @@ import java.util.Properties;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
                 RowBounds.class, ResultHandler.class})})
 public class DBEncryptInterceptor implements Interceptor {
+
+
+    private IEncrypt encrypt;
+
+    public DBEncryptInterceptor(Class clazz) {
+
+        try {
+            this.encrypt = (IEncrypt) clazz.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.encrypt = new AESUtil();
+        }
+    }
 
     public Object intercept(Invocation invocation) throws Throwable {
 
@@ -61,7 +75,7 @@ public class DBEncryptInterceptor implements Interceptor {
             if (field.isAnnotationPresent(MybatisEncrypt.class) && field.get(o) != null) {
                 try {
                     String value = (String) field.get(o);
-                    field.set(o, b ? AESUtil.decrypt(value) : AESUtil.encrypt(value));
+                    field.set(o, b ? encrypt.decrypt(value) : encrypt.encrypt(value));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

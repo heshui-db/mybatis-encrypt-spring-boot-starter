@@ -10,6 +10,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+;
+
 @Configuration
 @ConditionalOnClass(DBEncryptInterceptor.class)
 @EnableConfigurationProperties(MybatisEncryptProperties.class)
@@ -22,6 +24,6 @@ public class MybatisEncryptAutoConfigure {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "mybatis.encrypt", value = "enabled", havingValue = "true")
     public DBEncryptInterceptor exampleService() {
-        return new DBEncryptInterceptor();
+        return new DBEncryptInterceptor(properties.getClazz());
     }
 }

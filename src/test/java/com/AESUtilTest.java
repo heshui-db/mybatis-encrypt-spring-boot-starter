@@ -1,6 +1,6 @@
 package com;
 
-import com.dongbin.mybatis.utils.AESUtil;
+import com.dongbin.mybatis.encrypt.AESUtil;
 import org.junit.Test;
 
 public class AESUtilTest {
@@ -9,8 +9,9 @@ public class AESUtilTest {
 
     @Test
     public void encrypt() {
-        String encrypt = AESUtil.encrypt(param);
+        AESUtil aesUtil = new AESUtil();
+        String encrypt = aesUtil.encrypt(param);
         System.out.println(encrypt);
-        System.out.println(AESUtil.decrypt(encrypt));
+        System.out.println(aesUtil.decrypt(encrypt));
     }
 }
