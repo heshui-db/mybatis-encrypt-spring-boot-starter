@@ -23,7 +23,7 @@ public class MybatisEncryptAutoConfigure {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "mybatis.encrypt", value = "enabled", havingValue = "true")
-    public DBEncryptInterceptor exampleService() {
+    public DBEncryptInterceptor initDBEncryptInterceptor() {
         return new DBEncryptInterceptor(properties.getClazz());
     }
 }

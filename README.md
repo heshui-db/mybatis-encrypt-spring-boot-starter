@@ -1,22 +1,40 @@
-### 用法
+##### 本地打包
 ```properties
-        mvn clean install
-
+   git clone  https://github.com/dongbintop/mybatis-encrypt-spring-boot-starter.git
+   mvn clean install
 ```
 
-### 项目引用
 
+###### 项目引用
+
+pom 文件
 ```properties
-        <dependency>
-            <groupId>com.dongbin</groupId>
-            <artifactId>mybatis-encrypt-starter</artifactId>
-            <version>1.0</version>
-        </dependency>
+    <dependency>
+        <groupId>com.dongbin</groupId>
+        <artifactId>mybatis-encrypt-starter</artifactId>
+        <version>1.0.0</version>
+    </dependency>
  ```
  
- ### 实体类
+ application.properties
  
- ```java
-    @MybatisEncrypt
-    private String name;
- ```
+ ```properties
+     #是否开启加密
+     mybatis.encrypt.enabled=true
+     #对称加密的类，有默认值
+     mybatis.encrypt.clazz=com.dongbin.mybatis.encrypt.AESUtil
+```
+ Java 代码
+ 
+  ```java
+     @MybatisEncrypt
+     private String name;
+  ```
+  
+  ###### 注意
+  
+  - parameter 支持 map,collection 及 obj
+  - returnValue 支持 collection 及 obj
+  - 不支持嵌套（觉得没必要）
+ 
+
