@@ -15,6 +15,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.util.ReflectionUtils;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Properties;
 
 @Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
@@ -41,7 +42,20 @@ public class DBEncryptInterceptor implements Interceptor {
          * encrypt
          */
         if ("update".equals(invocation.getMethod().getName())) {
-            handle(invocation.getArgs()[1], false);
+            Object parameter = invocation.getArgs()[1];
+            if (parameter instanceof Map) {
+                Map map = (Map) parameter;
+                for (Object o : map.values()) {
+                    handle(o, false);
+                }
+            } else if (parameter instanceof Collection) {
+                Collection collection = (Collection) parameter;
+                for (Object o : collection) {
+                    handle(o, false);
+                }
+            } else {
+                handle(invocation.getArgs()[1], false);
+            }
         }
 
         /**
