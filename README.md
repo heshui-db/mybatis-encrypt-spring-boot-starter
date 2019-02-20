@@ -23,6 +23,9 @@ pom 文件
      mybatis.encrypt.enabled=true
      #对称加密的类，有默认值
      mybatis.encrypt.clazz=com.dongbin.mybatis.encrypt.AESUtil
+     
+     也可以在@MybatisEncrypt注解中指明加密类 但是必须实现IEncrypt
+     
 ```
  Java 代码
  

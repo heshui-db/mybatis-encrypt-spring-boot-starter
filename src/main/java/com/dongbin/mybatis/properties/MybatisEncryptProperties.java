@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MybatisEncryptProperties {
 
     /**
-     * 默认的加密方法
+     * 默认的加密方法，覆盖默认方法
      */
     private Class clazz = AESUtil.class;
 
